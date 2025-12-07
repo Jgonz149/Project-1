@@ -1,3 +1,6 @@
+Word frequencies in bible.txt
+word     frequency
+++++++++++++++++++++++++++++++++++++++++++++++
 a:   7997
 aaron:   319
 aaronites:   2
@@ -12603,9 +12606,6 @@ zur:   5
 zuriel:   1
 zurishaddai:   5
 zuzims:   1
-Word frequencies in bible.txt
-word     frequency
-++++++++++++++++++++++++++++++++++++++++++++++
 Word frequencies in world192.txt
 word     frequency
 ++++++++++++++++++++++++++++++++++++++++++++++

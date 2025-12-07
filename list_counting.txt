@@ -32236,5 +32236,5 @@ wrangel : 2
 wetar : 1
 winnipeg : 1
 ++++++++++++++++++++++++++++++++++++++++++++++
-time used to count word frequencies with a list is: 30 seconds
+time used to count word frequencies with a list is: 31 seconds
 

@@ -50,6 +50,7 @@ void printText(ofstream &out,const string &text);
 
 int main()
 {
+
     //derclare containers for counting
     list<string> mylist; 
     vector<string> myvector; 
@@ -215,7 +216,7 @@ int main()
 
     for(size_t i = 0; i < onlyword.size(); ++i)
     {
-        outFile << onlyword[i] << "     " << count[i] << endl;
+        outFile << onlyword[i] << ":    " << count[i] << endl;
     }
 
     // ---------- world192.txt with Vector ----------
@@ -323,7 +324,7 @@ int main()
     outFile << "time used to count word frequencies with a vector is: "
         << difftime(end_time, start_time) << " seconds" << endl << endl;
 
-    outFile.close();
+    outFile.close(); 
 
     /***************
      Counting jobs with a map 
@@ -333,13 +334,38 @@ int main()
     inFile2.open("world192_cleaned.txt");
     outFile.open("map_counting.txt");
 
-    //-------------Bible.txt with multisets-----------
+    //-------------Bible.txt with maps-----------
+    while(inFile1 >> word)
+    {
+        mymap[word]++;
+    }
 
-    
+    inFile1.close();
+
+    printText(outFile, "Bible.txt");
+
+    for(const auto &w: mymap)
+    {
+        outFile << w.first << ":   " << w.second << endl;
+    }
 
 
-    // ---------- world192.txt with mulitsets ----------
+    // ---------- world192.txt with maps ----------
+    mymap.clear();
 
+    while(inFile2 >> word)
+    {
+        mymap[word]++;
+    }
+
+    inFile2.close();
+
+    printText(outFile, "world192.txt");
+
+    for(const auto &w: mymap)
+    {
+        outFile << w.first << ":   " << w.second << endl;
+    }
 
     //record the end time
     end_time = time(NULL);
