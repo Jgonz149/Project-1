@@ -46,3 +46,10 @@ string cleanFile(ifstream& file)
 
     return clearedtxt;
 }
+
+void printText(ofstream &out,const string &text)
+{
+    out << "Word frequencies in "<< text << endl;
+    out << "word     frequency\n";
+    out << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+}

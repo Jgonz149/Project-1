@@ -12606,10 +12606,9 @@ chrysolyte     1
 chrysoprasus     1
 transparent     1
 proceeding     1
-++++++++++++++++++++++++++++++++++++++++++++++
-
-Word frequencies in World192.txt:
+Word frequencies in World192_cleaned.txt
 word     frequency
+++++++++++++++++++++++++++++++++++++++++++++++
 the : 6628
 project : 30
 gutenberg : 15
@@ -32237,5 +32236,5 @@ wrangel : 2
 wetar : 1
 winnipeg : 1
 ++++++++++++++++++++++++++++++++++++++++++++++
-time used to count word frequencies with a list is: 32 seconds
+time used to count word frequencies with a list is: 30 seconds
 

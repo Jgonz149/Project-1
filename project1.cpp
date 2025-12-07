@@ -45,6 +45,7 @@ using namespace std;
 /*Declaring functions*/
 string CleanWord(const string& word);
 string cleanFile(ifstream& file);
+void printText(ofstream &out,const string &text);
 
 
 int main()
@@ -102,8 +103,10 @@ int main()
     inFile2.open("world192_cleaned.txt");
     outFile.open("list_counting.txt"); 
 
+    //-------------Bible.txt with list-----------
 
-    while (!inFile1.eof()) {
+    while (!inFile1.eof())
+    {
         inFile1 >> word; 
         mylist.push_back(word);
     }
@@ -114,7 +117,7 @@ int main()
     for (const string& w : mylist)
     {
         bool found = false;
-        for (auto &p : listcount)       // not const; we modify p.second
+        for (auto &p : listcount)     
         {
             if (p.first == w)
             {
@@ -128,10 +131,10 @@ int main()
             listcount.push_back(make_pair(w, 1));
         }
     }
+    
+    //Prints word and count for file
+    printText(outFile,"bible.txt"); 
 
-    outFile << "Word frequencies in bible.txt\n";
-    outFile << "word     frequency\n";
-    outFile << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     for (const auto &p : listcount)
     {
         outFile << p.first << "     " << p.second << '\n';
@@ -141,7 +144,8 @@ int main()
     listcount.clear();
     mylist.clear();
 
-    while (inFile2 >> word) {
+    while (inFile2 >> word) 
+    {
         mylist.push_back(word);
     }
     inFile2.close();
@@ -163,27 +167,120 @@ int main()
             listcount.push_back(make_pair(w, 1));
         }
     }
-    //output the counting results
-    outFile << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    outFile << endl << "Word frequencies in World192.txt:" << endl;
-    outFile << "word     frequency\n";
+
+    //Prints word and count for file
+    printText(outFile, "World192_cleaned.txt");
     for(auto& p : listcount)
     {
         outFile << p.first << " : " << p.second << endl;
     }
 
+    //output the counting results
     //record the end time
     end_time = time(NULL);
     outFile << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     outFile << "time used to count word frequencies with a list is: "
         << difftime(end_time, start_time) << " seconds" << endl << endl;
     //Counting is done. Close the files. 
-    inFile2.close();
     outFile.close();
 
     /***************
-     Repeat the counting jobs with a vector, 
-     a set/multiset, and a map respectively
+     Counting jobs with a vector 
+    ****************/
+
+   //-------------Bible.txt with Vector-----------
+    start_time = time(NULL);
+    inFile1.open("bible_cleaned.txt");
+    inFile2.open("world192_cleaned.txt");
+    outFile.open("vector_counting.txt");
+    vector<string> onlyword;
+    vector<int> count;
+
+    while(inFile1 >> word)
+    {
+        myvector.push_back(word);
+    }
+
+    inFile1.close();
+
+    for(const string &w: myvector)
+    {
+        bool found = false;
+        for(size_t i = 0; i < onlyword.size(); i++)
+        {
+            if(onlyword[i] == w)
+            {
+                ++count[i];
+                found = true;
+                break;            
+            }
+        }
+        if(!found)
+        {
+            onlyword.push_back(w);
+            count.push_back(1);
+        }
+
+    }
+    //Prints word and count for file
+    printText(outFile, "bible_cleaned.txt");
+
+    for(size_t i = 0; i < onlyword.size(); ++i)
+    {
+        outFile << onlyword[i] << "     " << count[i] << endl;
+    }
+
+    // ---------- world192.txt with Vector ----------
+    myvector.clear();
+    onlyword.clear();
+    count.clear();
+
+    while(inFile2 >> word)
+    {
+        myvector.push_back(word);
+    }
+    
+    inFile2.close();
+
+    for(const string &w: myvector)
+    {
+        bool found = false;
+        for(size_t i = 0; i < onlyword.size(); i++)
+        {
+            if(onlyword[i] == w)
+            {
+                ++count[i];
+                found = true;
+                break;            
+            }
+        }
+        if(!found)
+        {
+            onlyword.push_back(w);
+            count.push_back(1);
+        }
+
+    }
+
+    //Prints word and count for file
+    printText(outFile, "World192_cleaned.txt");
+
+    for(size_t i = 0; i < onlyword.size(); ++i)
+    {
+        outFile << onlyword[i] << ":     " << count[i] << endl;
+
+    }
+    //prints 
+    //record the end time
+    end_time = time(NULL);
+    outFile << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    outFile << "time used to count word frequencies with a vector is: "
+        << difftime(end_time, start_time) << " seconds" << endl << endl;
+
+    outFile.close();
+
+    /***************
+     Counting jobs with a sets 
     ****************/
 
 
