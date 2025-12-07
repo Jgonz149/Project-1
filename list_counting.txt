@@ -3831,7 +3831,7 @@ lain     6
 cursing     12
 rot     5
 swell     4
-amen     79
+amen     78
 curses     8
 jealousies     1
 nazarite     9
@@ -12606,7 +12606,7 @@ chrysolyte     1
 chrysoprasus     1
 transparent     1
 proceeding     1
-Word frequencies in World192_cleaned.txt
+Word frequencies in World192.txt
 word     frequency
 ++++++++++++++++++++++++++++++++++++++++++++++
 the : 6628

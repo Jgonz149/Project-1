@@ -68,27 +68,15 @@ int main()
 
     //cleaning bible and world192 
     inFile1.open("bible.txt");
-    if(!inFile1){cerr << "Couldnt open bible.txt\n"; return 1;}
-
     inFile2.open("world192.txt");
-    if(!inFile2){cerr << "Couldnt open world192.txt\n"; return 1;}
-
 
     string cleanedFile1 = cleanFile(inFile1);
     outFile.open("bible_cleaned.txt");
-    if(!outFile)
-    {
-        cerr << "Couldnt open outfile1 for writing\n"; return 1;
-    }
     outFile << cleanedFile1;
     outFile.close();
 
-    string cleanedFile2 = cleanFile(inFile2);
     outFile.open("world192_cleaned.txt");
-    if(!outFile)
-    {
-        cerr << "Couldnt open outfile2 for writing\n"; return 1;
-    }
+    string cleanedFile2 = cleanFile(inFile2);
     outFile << cleanedFile2;
     outFile.close();
 
@@ -105,9 +93,8 @@ int main()
 
     //-------------Bible.txt with list-----------
 
-    while (!inFile1.eof())
+    while (inFile1 >> word)
     {
-        inFile1 >> word; 
         mylist.push_back(word);
     }
     inFile1.close();
@@ -169,7 +156,8 @@ int main()
     }
 
     //Prints word and count for file
-    printText(outFile, "World192_cleaned.txt");
+    printText(outFile, "World192.txt");
+
     for(auto& p : listcount)
     {
         outFile << p.first << " : " << p.second << endl;
@@ -270,7 +258,7 @@ int main()
         outFile << onlyword[i] << ":     " << count[i] << endl;
 
     }
-    //prints 
+    //prints count
     //record the end time
     end_time = time(NULL);
     outFile << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
@@ -280,9 +268,84 @@ int main()
     outFile.close();
 
     /***************
-     Counting jobs with a sets 
+     Counting jobs with a multiset 
     ****************/
 
+     //-------------Bible.txt with multisets-----------
+    start_time = time(NULL);
+    inFile1.open("bible_cleaned.txt");
+    inFile2.open("world192_cleaned.txt");
+    outFile.open("set_counting.txt");
+
+    printText(outFile, "bible.txt");
+
+    while(inFile1 >> word)
+    {
+        myset.insert(word);
+
+    }
+
+    for(auto it = myset.begin(); it != myset.end(); )
+    {
+        auto range = myset.equal_range(*it);
+        int times = distance(range.first, range.second);
+        outFile << *it << ":   " << times << endl;
+        it = range.second;
+    }
+ 
+    inFile1.close();
+    
+
+    // ---------- world192.txt with mulitsets ----------
+    myset.clear();
+
+    printText(outFile, "world192.txt");
+
+    while(inFile2 >> word)
+    {
+        myset.insert(word);
+
+    }
+
+    for(auto it = myset.begin(); it != myset.end(); )
+    {
+        auto range = myset.equal_range(*it);
+        int times = distance(range.first, range.second);
+        outFile << *it << ":   " << times << endl;
+        it = range.second;
+    }
+
+    inFile2.close();
+    
+    //record the end time
+    end_time = time(NULL);
+    outFile << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    outFile << "time used to count word frequencies with a vector is: "
+        << difftime(end_time, start_time) << " seconds" << endl << endl;
+
+    outFile.close();
+
+    /***************
+     Counting jobs with a map 
+    ****************/
+    start_time = time(NULL);
+    inFile1.open("bible_cleaned.txt");
+    inFile2.open("world192_cleaned.txt");
+    outFile.open("map_counting.txt");
+
+    //-------------Bible.txt with multisets-----------
+
+    
+
+
+    // ---------- world192.txt with mulitsets ----------
+
+
+    //record the end time
+    end_time = time(NULL);
+    outFile << "++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    outFile << "time used to count word frequencies with a vector is: "
+        << difftime(end_time, start_time) << " seconds" << endl << endl;
 
 
     //the work is done
